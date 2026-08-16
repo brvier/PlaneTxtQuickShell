@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "fr.rvier.planova",
+  "name": "Planova",
+  "version": "0.1.0",
+  "author": "Benoît HERVIER",
+  "description": "Date/time label with a Planova calendar, todos, and notes popup",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Planova",
+    "description": "Clock replacement backed by Planova's plaintext markdown files",
+    "category": "Time",
+    "allowMultiple": false,
+    "defaultSection": "center"
+  }
+}
