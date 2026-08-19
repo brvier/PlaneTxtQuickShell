@@ -58,12 +58,12 @@ middle click opens the timezone picker.
 
 Panel keys - calendar: arrows/`hjkl` move the selected day (`j`/`k` by
 week), `[` `]` month, `{` `}` year, `t` today, `Enter`/`Space` focus the task
-list (then `j`/`k` + `Space` toggles a todo), `a` add a todo, `Shift+E` add
-an event, `Shift+L` add a log, `r` refill, `e` open the day file in your
-editor, `n` notes. Inside the quick-add form, `Ctrl+E`/`Ctrl+T`/`Ctrl+L`
-switch the entry type without leaving the title field. Notes: `j`/`k` move,
-`Enter` opens in your editor, `/` search, `o` new note, `r` (or right-click)
-renames, `x` deletes. `Esc` backs out, then closes.
+list (then `j`/`k` + `Space` toggles a todo), `a` add a todo, `e` add an
+event, `g` add a log, `r` refill, `o` open the day file in your editor,
+`n` notes. Inside the quick-add form, `Ctrl+E`/`Ctrl+T`/`Ctrl+L` switch the
+entry type without leaving the title field. Notes: `j`/`k` move, `Enter`
+opens in your editor, `/` search, `o` new note, `r` (or right-click) renames,
+`x` deletes. `Esc` backs out, then closes.
 
 IPC:
 

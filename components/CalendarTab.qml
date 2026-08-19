@@ -157,7 +157,7 @@ Column {
     Button {
       text: "Event"
       iconText: "󰃰"
-      tooltipText: "Add an event (Shift+E)"
+      tooltipText: "Add an event (e)"
       foreground: root.panel.contentForeground
       fontFamily: root.panel.contentFontFamily
       onClicked: root.panel.startQuickAdd("event")
@@ -166,7 +166,7 @@ Column {
     Button {
       text: "Log"
       iconText: "󰦨"
-      tooltipText: "Add a log entry (Shift+L)"
+      tooltipText: "Add a log entry (g)"
       foreground: root.panel.contentForeground
       fontFamily: root.panel.contentFontFamily
       onClicked: root.panel.startQuickAdd("log")
@@ -184,7 +184,7 @@ Column {
     Button {
       text: "Edit"
       iconText: "󰤌"
-      tooltipText: "Open this day in your editor (e)"
+      tooltipText: "Open this day in your editor (o)"
       foreground: root.panel.contentForeground
       fontFamily: root.panel.contentFontFamily
       onClicked: root.panel.editSelectedDay()
@@ -196,7 +196,7 @@ Column {
   Text {
     width: parent.width
     horizontalAlignment: Text.AlignHCenter
-    text: "a todo · E event · L log · r refill · e edit · t today · n notes"
+    text: "a todo · e event · g log · r refill · o open · t today · n notes"
     color: Qt.darker(root.panel.contentForeground, 1.9)
     font.family: root.panel.contentFontFamily
     font.pixelSize: Style.font.caption

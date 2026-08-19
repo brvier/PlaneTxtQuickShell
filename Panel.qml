@@ -250,10 +250,10 @@ Panel {
     else if (t === "}") moveYear(1)
     else if (t === "t" || t === "T") goToToday()
     else if (t === "a") startQuickAdd("todo")
-    else if (t === "E") startQuickAdd("event")
-    else if (t === "L") startQuickAdd("log")
+    else if (t === "e" || t === "E") startQuickAdd("event")
+    else if (t === "g" || t === "G" || t === "L") startQuickAdd("log")
     else if (t === "r") startRefill()
-    else if (t === "e") editSelectedDay()
+    else if (t === "o" || t === "O") editSelectedDay()
   }
 
   SystemClock {
