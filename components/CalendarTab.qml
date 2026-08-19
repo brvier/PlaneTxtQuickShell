@@ -146,12 +146,30 @@ Column {
     spacing: Style.space(6)
 
     Button {
-      text: "Add"
+      text: "Todo"
       iconText: "󰐕"
-      tooltipText: "Quick add - event, todo, or log (a)"
+      tooltipText: "Add a todo (a)"
       foreground: root.panel.contentForeground
       fontFamily: root.panel.contentFontFamily
-      onClicked: root.panel.startQuickAdd()
+      onClicked: root.panel.startQuickAdd("todo")
+    }
+
+    Button {
+      text: "Event"
+      iconText: "󰃰"
+      tooltipText: "Add an event (Shift+E)"
+      foreground: root.panel.contentForeground
+      fontFamily: root.panel.contentFontFamily
+      onClicked: root.panel.startQuickAdd("event")
+    }
+
+    Button {
+      text: "Log"
+      iconText: "󰦨"
+      tooltipText: "Add a log entry (Shift+L)"
+      foreground: root.panel.contentForeground
+      fontFamily: root.panel.contentFontFamily
+      onClicked: root.panel.startQuickAdd("log")
     }
 
     Button {
@@ -171,5 +189,16 @@ Column {
       fontFamily: root.panel.contentFontFamily
       onClicked: root.panel.editSelectedDay()
     }
+  }
+
+  // Every action is reachable from the keyboard; say so where the eye
+  // already is instead of hiding it in tooltips.
+  Text {
+    width: parent.width
+    horizontalAlignment: Text.AlignHCenter
+    text: "a todo · E event · L log · r refill · e edit · t today · n notes"
+    color: Qt.darker(root.panel.contentForeground, 1.9)
+    font.family: root.panel.contentFontFamily
+    font.pixelSize: Style.font.caption
   }
 }

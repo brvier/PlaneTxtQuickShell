@@ -27,7 +27,8 @@ omarchy-shell shell rescanPlugins
 ```
 
 The inotify watcher does not follow the symlink, so after editing QML run
-`omarchy-shell shell rescanPlugins` (or `omarchy-restart-shell`) to reload.
+`omarchy-restart-shell` to reload (`omarchy-shell shell rescanPlugins` alone
+does not reliably refresh already-compiled QML from a symlinked tree).
 
 Then replace the clock in `~/.config/omarchy/shell.json`: in
 `bar.layout.center`, change the `omarchy.clock` entry's `id` to
@@ -57,10 +58,12 @@ middle click opens the timezone picker.
 
 Panel keys - calendar: arrows/`hjkl` move the selected day (`j`/`k` by
 week), `[` `]` month, `{` `}` year, `t` today, `Enter`/`Space` focus the task
-list (then `j`/`k` + `Space` toggles a todo), `a` quick add, `r` refill,
-`e` open the day file in your editor, `n` notes. Notes: `j`/`k` move, `Enter`
-opens in your editor, `/` search, `o` new note, right-click renames, `x`
-deletes. `Esc` backs out, then closes.
+list (then `j`/`k` + `Space` toggles a todo), `a` add a todo, `Shift+E` add
+an event, `Shift+L` add a log, `r` refill, `e` open the day file in your
+editor, `n` notes. Inside the quick-add form, `Ctrl+E`/`Ctrl+T`/`Ctrl+L`
+switch the entry type without leaving the title field. Notes: `j`/`k` move,
+`Enter` opens in your editor, `/` search, `o` new note, `r` (or right-click)
+renames, `x` deletes. `Esc` backs out, then closes.
 
 IPC:
 

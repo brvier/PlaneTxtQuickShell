@@ -138,9 +138,9 @@ Panel {
     Qt.callLater(function() { if (keyCatcher) keyCatcher.forceActiveFocus() })
   }
 
-  function startQuickAdd() {
+  function startQuickAdd(type) {
     root.mode = "quickadd"
-    quickAdd.begin()
+    quickAdd.begin(type || "todo")
   }
 
   function startRefill() {
@@ -240,6 +240,7 @@ Panel {
       if (t === "o") notesTab.startCreate()
       else if (t === "/") notesTab.focusSearch()
       else if (t === "e") notesTab.activate()
+      else if (t === "r" || t === "R") notesTab.startRename()
       return
     }
     if (mode !== "main") return
@@ -248,7 +249,9 @@ Panel {
     else if (t === "{") moveYear(-1)
     else if (t === "}") moveYear(1)
     else if (t === "t" || t === "T") goToToday()
-    else if (t === "a") startQuickAdd()
+    else if (t === "a") startQuickAdd("todo")
+    else if (t === "E") startQuickAdd("event")
+    else if (t === "L") startQuickAdd("log")
     else if (t === "r") startRefill()
     else if (t === "e") editSelectedDay()
   }

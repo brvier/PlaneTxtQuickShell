@@ -262,7 +262,7 @@ Column {
     visible: root.filteredNotes.length > 0
     width: parent.width
     horizontalAlignment: Text.AlignHCenter
-    text: "enter open · o new · right-click rename · x delete"
+    text: "enter open · o new · r rename · x delete · / search"
     color: Qt.darker(root.fg, 1.9)
     font.family: root.fontFamily
     font.pixelSize: Style.font.caption

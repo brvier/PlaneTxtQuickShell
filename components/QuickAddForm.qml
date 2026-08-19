@@ -21,8 +21,8 @@ Column {
   readonly property color fg: panel.contentForeground
   readonly property string fontFamily: panel.contentFontFamily
 
-  function begin() {
-    addType = "todo"
+  function begin(type) {
+    addType = type === "event" || type === "log" ? type : "todo"
     titleField.text = ""
     var next = new Date()
     hourField.text = String((next.getHours() + 1) % 24)
@@ -56,6 +56,11 @@ Column {
     } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
       commit()
       event.accepted = true
+    } else if (event.modifiers & Qt.ControlModifier) {
+      // Switch the entry type without leaving the title field.
+      if (event.key === Qt.Key_E) { root.addType = "event"; event.accepted = true }
+      else if (event.key === Qt.Key_T) { root.addType = "todo"; event.accepted = true }
+      else if (event.key === Qt.Key_L) { root.addType = "log"; event.accepted = true }
     }
   }
 
@@ -70,15 +75,16 @@ Column {
 
     Repeater {
       model: [
-        { key: "event", label: "Event", icon: "󰃰" },
-        { key: "todo", label: "Todo", icon: "󰄱" },
-        { key: "log", label: "Log", icon: "󰦨" }
+        { key: "event", label: "Event", icon: "󰃰", hint: "Ctrl+E" },
+        { key: "todo", label: "Todo", icon: "󰄱", hint: "Ctrl+T" },
+        { key: "log", label: "Log", icon: "󰦨", hint: "Ctrl+L" }
       ]
 
       Button {
         required property var modelData
         text: modelData.label
         iconText: modelData.icon
+        tooltipText: modelData.hint
         selected: root.addType === modelData.key
         bordered: true
         foreground: root.fg
