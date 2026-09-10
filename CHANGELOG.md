@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- README: real install URL, working `omarchy-shell <target> <method>` IPC examples, and new Uninstall, Dependencies and License sections for the Omarchy plugin marketplace listing.
+
 ## [0.1.0] - 2026-08-19
 
 ### Added

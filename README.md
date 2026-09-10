@@ -14,7 +14,7 @@ watch the files, so edits made in one show up in the other within seconds.
 ## Install
 
 ```bash
-omarchy plugin add https://your-git-host/PlanovaQuickShell.git
+omarchy plugin add https://github.com/brvier/PlanovaQuickShell.git
 omarchy plugin enable fr.rvier.planova
 ```
 
@@ -35,6 +35,20 @@ Then replace the clock in `~/.config/omarchy/shell.json`: in
 `fr.rvier.planova` (its `format`/`formatAlt`/`verticalFormat` settings carry
 over unchanged), and set `bar.centerAnchor` to `fr.rvier.planova`. The file
 hot-reloads on save.
+
+## Uninstall
+
+The plugin never edits `shell.json` itself, so removal is the install in
+reverse. Put the clock back first: in `bar.layout.center` change the
+`fr.rvier.planova` entry's `id` back to `omarchy.clock` (keep the format
+settings) and set `bar.centerAnchor` back to `omarchy.clock`. Then:
+
+```bash
+omarchy plugin disable fr.rvier.planova
+omarchy plugin remove fr.rvier.planova
+```
+
+Your markdown files under the Org root are left untouched.
 
 ## Configuration
 
@@ -68,10 +82,13 @@ opens in your editor, `/` search, `o` new note, `r` (or right-click) renames,
 IPC:
 
 ```bash
-omarchy-shell ipc call fr.rvier.planova toggle
-omarchy-shell ipc call fr.rvier.planova addTodo "buy milk"
-omarchy-shell ipc call fr.rvier.planova addLog "shipped the release"
+omarchy-shell fr.rvier.planova toggle
+omarchy-shell fr.rvier.planova today
+omarchy-shell fr.rvier.planova addTodo "buy milk"
+omarchy-shell fr.rvier.planova addLog "shipped the release"
 ```
+
+Other methods: `open`, `close`, `refresh`, `cycleFormat`.
 
 ## Development
 
@@ -85,3 +102,21 @@ node --test tests/model.test.mjs
 The test file includes 1:1 ports of Planova's own parser and content-helper
 test suites - they are the compatibility contract. If a test needs changing,
 Planova and this plugin have diverged.
+
+## Dependencies
+
+Everything the plugin needs ships with Omarchy 4: the quickshell runtime,
+`bash`, `find`, `inotifywait` (inotify-tools, used to watch the Org
+directories), and `omarchy-launch-editor` / `omarchy-menu-timezone` for the
+editor and timezone actions. No network access, no downloads, no sudo.
+
+[Planova](https://git.rvier.fr/planova) itself is optional. Without it the
+plugin still works on `~/Org` (or `storagePath`) with the built-in defaults;
+with it, the Org root, templates and header patterns are read from Planova's
+preferences so both apps agree.
+
+Node.js is only needed to run the test suite.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
