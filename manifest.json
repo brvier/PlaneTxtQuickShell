@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "fr.rvier.planova",
   "name": "Planova",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Benoît HERVIER",
   "description": "Date/time label with a Planova calendar, todos, and notes popup",
   "kinds": [

@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.1.1] - 2026-09-10
 
 ### Added
 - Screenshots in the README and a root `preview.png` for the marketplace card.
