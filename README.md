@@ -11,6 +11,17 @@ Everything reads and writes Planova's plaintext markdown files directly -
 parsing and insertion rules as Planova itself, with atomic writes. Both apps
 watch the files, so edits made in one show up in the other within seconds.
 
+## Screenshots
+
+<p align="center">
+  <img src="preview.png" alt="Planova panel: month calendar with per-day indicators, the day's events, tasks and notes" width="600">
+</p>
+
+<p align="center">
+  <img src="docs/quick-add-todo.png" alt="Quick add form, todo mode" width="420">
+  <img src="docs/quick-add-event.png" alt="Quick add form, event mode with time fields" width="420">
+</p>
+
 ## Install
 
 ```bash

@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Added
+- Screenshots in the README and a root `preview.png` for the marketplace card.
+
 ### Fixed
 - README: real install URL, working `omarchy-shell <target> <method>` IPC examples, and new Uninstall, Dependencies and License sections for the Omarchy plugin marketplace listing.
 
