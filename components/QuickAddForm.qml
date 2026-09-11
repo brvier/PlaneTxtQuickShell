@@ -58,9 +58,13 @@ Column {
       event.accepted = true
     } else if (event.modifiers & Qt.ControlModifier) {
       // Switch the entry type without leaving the title field.
-      if (event.key === Qt.Key_E) { root.addType = "event"; event.accepted = true }
-      else if (event.key === Qt.Key_T) { root.addType = "todo"; event.accepted = true }
-      else if (event.key === Qt.Key_L) { root.addType = "log"; event.accepted = true }
+      var next = event.key === Qt.Key_E ? "event" : event.key === Qt.Key_T ? "todo" : event.key === Qt.Key_L ? "log" : ""
+      if (next === "") return
+      root.addType = next
+      event.accepted = true
+      // From the hour/minute fields the time row may just have vanished
+      // under the cursor; keep typing in the title either way.
+      if (!titleField.activeFocus) Qt.callLater(function() { titleField.forceActiveFocus() })
     }
   }
 

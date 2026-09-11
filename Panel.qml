@@ -85,8 +85,13 @@ Panel {
     return false
   }
 
+  // Omarchy 4.0.3 hands plugins a PluginBarApi facade where the flag is
+  // read-only behind a setter; older bars expose the property directly.
   function setCenterHoverRevealSuppressed(value) {
-    if (root.bar && "centerHoverRevealSuppressed" in root.bar)
+    if (!root.bar) return
+    if (typeof root.bar.setCenterHoverRevealSuppressed === "function")
+      root.bar.setCenterHoverRevealSuppressed(value)
+    else if ("centerHoverRevealSuppressed" in root.bar)
       root.bar.centerHoverRevealSuppressed = value
   }
 
@@ -137,6 +142,14 @@ Panel {
   function refocus() {
     Qt.callLater(function() { if (keyCatcher) keyCatcher.forceActiveFocus() })
   }
+
+  // A focused text field that gets hidden (switching tab from the header
+  // while quick add or the notes search is up, dropping the time row by
+  // switching the entry type from the hour field) loses focus without
+  // handing it to anyone, and the key catcher stops hearing Escape. Whenever
+  // the fields stop editing while the panel is up, take the keys back.
+  readonly property bool fieldEditing: quickAdd.editing || notesTab.editing
+  onFieldEditingChanged: if (!fieldEditing && root.opened) refocus()
 
   function startQuickAdd(type) {
     root.mode = "quickadd"
