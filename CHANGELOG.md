@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.1.2] - 2026-09-11
 
 ### Fixed
 - Panel could not be closed on Omarchy 4.0.3: the bar handed to plugins is now a PluginBarApi facade whose `centerHoverRevealSuppressed` is read-only, so `close()` threw before hiding. Use the facade's setter, with the direct property as fallback for older shells.
