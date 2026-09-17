@@ -1,6 +1,6 @@
-// Ports of Planova's test/markdown_parser_test.dart and
+// Ports of PlaneTxt's test/markdown_parser_test.dart and
 // test/daily_content_helper_test.dart - the compatibility contract with
-// Planova's markdown files - plus cases for the functions this plugin adds
+// PlaneTxt's markdown files - plus cases for the functions this plugin adds
 // (toggle, serializers, refill, indicators, keys).
 //
 // Run with: node --test tests/
@@ -10,7 +10,7 @@ import assert from "node:assert/strict"
 import { createRequire } from "node:module"
 
 const require = createRequire(import.meta.url)
-const M = require("../PlanovaModel.js")
+const M = require("../PlaneTxtModel.js")
 
 const todoHeader = "^#{1,2}\\s+.*Tasks?"
 const eventHeader = "^#{1,2}\\s+.*Events?"
@@ -56,8 +56,8 @@ test("parseTasks: returns empty list for empty content", () => {
   assert.deepEqual(M.parseTasks(""), [])
 })
 
-test("parseTasks: uppercase X is not done (Planova rule)", () => {
-  // [X] doesn't match the todo shape at all in Planova's regexes.
+test("parseTasks: uppercase X is not done (PlaneTxt rule)", () => {
+  // [X] doesn't match the todo shape at all in PlaneTxt's regexes.
   assert.deepEqual(M.parseTasks("- [X] shouty"), [])
 })
 
@@ -176,7 +176,7 @@ test("insertAfterLastTodo: appends at end when regex is empty", () => {
   assert.ok(M.insertAfterLastTodo("text", "- [ ] new", "").includes("- [ ] new"))
 })
 
-test("insertAfterLastTodo: works against the real Planova template headers", () => {
+test("insertAfterLastTodo: works against the real PlaneTxt template headers", () => {
   const result = M.insertAfterLastTodo(M.DEFAULT_TEMPLATE, "- [ ] new", M.DEFAULT_TODO_HEADER)
   const lines = result.split("\n")
   assert.equal(lines[lines.indexOf("# ✅ Todos") + 1], "- [ ] new")
@@ -282,7 +282,7 @@ test("toggleTaskAtLine: leaves non-todo lines untouched", () => {
 
 // ---- Serializers -----------------------------------------------------------------------
 
-test("serializers produce Planova's canonical lines", () => {
+test("serializers produce PlaneTxt's canonical lines", () => {
   assert.equal(M.todoLineFor("  task  "), "- [ ] task")
   assert.equal(M.eventLineFor(9, 5, "breakfast"), "- @09:05 breakfast")
   assert.equal(M.eventLineFor(14, 30, "dentist"), "- @14:30 dentist")
@@ -309,7 +309,7 @@ test("removeTodoLines: removes by trim-equality only", () => {
   assert.equal(result, "## Tasks\n- [ ] stays\n* [ ] different bullet stays")
 })
 
-test("refill round trip matches Planova's insert semantics", () => {
+test("refill round trip matches PlaneTxt's insert semantics", () => {
   const target = M.DEFAULT_TEMPLATE
   const inserted = M.insertAfterLastTodo(target, "- [ ] moved", M.DEFAULT_TODO_HEADER)
   assert.ok(inserted.split("\n").indexOf("- [ ] moved") ===
@@ -373,13 +373,13 @@ test("monthGrid: six Monday-first weeks with today and selected marked", () => {
 
 // ---- Prefs -----------------------------------------------------------------------------------
 
-test("planovaPrefs: reads flutter.-prefixed keys, null when absent", () => {
-  const prefs = M.planovaPrefs(JSON.stringify({
+test("planetxtPrefs: reads flutter.-prefixed keys, null when absent", () => {
+  const prefs = M.planetxtPrefs(JSON.stringify({
     "flutter.storage_path": "/home/user/Org",
     "flutter.todo_header_regex": "^#\\s+Custom"
   }))
   assert.equal(prefs.storagePath, "/home/user/Org")
   assert.equal(prefs.todoHeaderRegex, "^#\\s+Custom")
   assert.equal(prefs.dailyTemplate, null)
-  assert.equal(M.planovaPrefs("garbage").storagePath, null)
+  assert.equal(M.planetxtPrefs("garbage").storagePath, null)
 })

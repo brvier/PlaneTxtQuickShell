@@ -2,7 +2,7 @@ import QtQuick
 import qs.Commons
 import qs.Ui
 
-// Planova's quick add: one line into the right section of the selected
+// PlaneTxt's quick add: one line into the right section of the selected
 // day's file: an event (- @HH:MM title), a todo (- [ ] title), or a log
 // (- HH:MM title, stamped with "now"). Enter commits, Escape backs out.
 Column {

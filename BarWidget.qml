@@ -3,18 +3,18 @@ import Quickshell
 import Quickshell.Io
 import qs.Commons
 import qs.Ui
-import "PlanovaModel.js" as Model
+import "PlaneTxtModel.js" as Model
 
 // Date/time label for the bar - a drop-in replacement for omarchy.clock -
-// hosting the Planova popup: calendar with per-day indicators, day view,
-// quick add, refill, and notes, all backed by Planova's markdown files.
+// hosting the PlaneTxt popup: calendar with per-day indicators, day view,
+// quick add, refill, and notes, all backed by PlaneTxt's markdown files.
 //
 // Left click reveals the panel, right click walks the common label formats,
 // and middle click opens the timezone picker, exactly like the clock. A
 // small badge on the label counts today's undone todos.
 BarWidget {
   id: root
-  moduleName: "fr.rvier.planova"
+  moduleName: "fr.rvier.planetxt"
 
   property date displayDate: clock.date
 
@@ -63,7 +63,7 @@ BarWidget {
     return Qt.formatDateTime(date, activeFormat.replace(/ww/g, Model.isoWeekLiteral(date.getFullYear(), date.getMonth(), date.getDate())))
   }
 
-  // ---- Planova popup. Shape contract for shell.summon/hide/toggle
+  // ---- PlaneTxt popup. Shape contract for shell.summon/hide/toggle
   //      routing: Bar.findPanelWidget requires open/close/opened on the
   //      bar-widget root.
   readonly property bool opened: panelLoader.item ? panelLoader.item.opened === true : false
@@ -136,7 +136,7 @@ BarWidget {
   }
 
   IpcHandler {
-    target: "fr.rvier.planova"
+    target: "fr.rvier.planetxt"
 
     function refresh(): void { root.broadcast("refresh") }
     function cycleFormat(): void { root.cycleFormat() }

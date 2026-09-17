@@ -1,8 +1,8 @@
 import QtQuick
 import qs.Commons
-import "../PlanovaModel.js" as Model
+import "../PlaneTxtModel.js" as Model
 
-// One day in the month grid: the number with Planova's indicator beneath -
+// One day in the month grid: the number with PlaneTxt's indicator beneath -
 // a filled check when every todo is done, one dot per undone todo up to
 // three, a count badge past that, a quiet dot for event-only or file-only
 // days. Selection is an accent border; today is bold.

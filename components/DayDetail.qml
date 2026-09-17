@@ -1,9 +1,9 @@
 import QtQuick
 import qs.Commons
 import qs.Ui
-import "../PlanovaModel.js" as Model
+import "../PlaneTxtModel.js" as Model
 
-// The selected day, read the way Planova's day view reads it: Events, then
+// The selected day, read the way PlaneTxt's day view reads it: Events, then
 // Tasks, then Notes. Clicking a task (or Space on the keyboard cursor)
 // flips its checkbox in the markdown.
 Column {

@@ -1,11 +1,11 @@
-// Pure parsing, insertion, and date math for the Planova bar widget and its
+// Pure parsing, insertion, and date math for the PlaneTxt bar widget and its
 // panel. Everything here is Qt-free so it can be unit tested under node
 // (tests/model.test.mjs); the QML owns file IO and month/weekday naming.
 //
-// The regexes and insertion algorithms are line-for-line ports of Planova's
+// The regexes and insertion algorithms are line-for-line ports of PlaneTxt's
 // lib/utils/markdown_parser.dart and lib/utils/daily_content_helper.dart -
-// they are the compatibility contract with Planova's markdown files. Do not
-// "improve" them without changing Planova first.
+// they are the compatibility contract with PlaneTxt's markdown files. Do not
+// "improve" them without changing PlaneTxt first.
 
 // ---- Line regexes (MarkdownParser) ----------------------------------------
 
@@ -57,7 +57,7 @@ function parseTasks(content) {
   return tasks
 }
 
-// Events in the whole file. dateKey is Planova's YYYYMMDD; an invalid key
+// Events in the whole file. dateKey is PlaneTxt's YYYYMMDD; an invalid key
 // yields no events, matching the Dart parser.
 function parseEvents(dateKey, content) {
   var events = []
@@ -307,7 +307,7 @@ function insertAtEndOfSection(content, newContent, sectionHeaderRegexStr) {
 // ---- Mutations and serializers ---------------------------------------------
 
 // Rewrite only the checkbox on the given line, keeping indentation, bullet
-// marker, and text. Matches Planova's editor toggle output: "[x]" / "[ ]"
+// marker, and text. Matches PlaneTxt's editor toggle output: "[x]" / "[ ]"
 // followed by a single space and the text.
 function toggleTaskAtLine(content, lineIndex) {
   var lines = String(content || "").split("\n")
@@ -320,7 +320,7 @@ function toggleTaskAtLine(content, lineIndex) {
 }
 
 // Refill source cleanup: drop every line whose trimmed form equals one of
-// the canonical todo lines. Trim-equality is what Planova uses, so a source
+// the canonical todo lines. Trim-equality is what PlaneTxt uses, so a source
 // line written with a different bullet marker survives there and here alike.
 function removeTodoLines(content, todoLines) {
   var wanted = {}
@@ -388,7 +388,7 @@ function daySummary(key, content) {
   }
 }
 
-// Indicator for a day cell, mirroring Planova's CalendarDayWidget rules:
+// Indicator for a day cell, mirroring PlaneTxt's CalendarDayWidget rules:
 // all todos done → filled check; 1-3 undone → that many dots; more → a count
 // badge; events only → one accent dot; a file with neither → one quiet dot.
 function dayIndicator(summary) {
@@ -404,7 +404,7 @@ function dayIndicator(summary) {
 
 // ---- Dates and keys ----------------------------------------------------------
 
-// Planova's day identity: zero-padded YYYYMMDD.
+// PlaneTxt's day identity: zero-padded YYYYMMDD.
 function keyFor(year, month, day) {
   return String(year) + pad2(Number(month) + 1) + pad2(day)
 }
@@ -456,9 +456,9 @@ function isoWeekLiteral(year, month, day) {
   return pad2(isoWeek(year, month, day))
 }
 
-// Always six rows of seven days, Monday-first like Planova's calendar, so
+// Always six rows of seven days, Monday-first like PlaneTxt's calendar, so
 // the popup is the same height in February as in August. todayKey and
-// selectedKey are Planova YYYYMMDD keys.
+// selectedKey are PlaneTxt YYYYMMDD keys.
 function monthGrid(year, month, todayKey, selectedKey) {
   var leading = (new Date(year, month, 1).getDay() - 1 + 7) % 7
   var cursor = new Date(year, month, 1 - leading)
@@ -536,12 +536,12 @@ function nextClockFormat(ring, current) {
   return ring[(index + 1) % ring.length]
 }
 
-// ---- Planova preferences -----------------------------------------------------
+// ---- PlaneTxt preferences -----------------------------------------------------
 
-// Values a QuickShell panel needs from Planova's shared_preferences.json.
+// Values a QuickShell panel needs from PlaneTxt's shared_preferences.json.
 // Every key is prefixed "flutter." on disk (the plugin adds it here so QML
 // hands in the raw parsed JSON object).
-function planovaPrefs(json) {
+function planetxtPrefs(json) {
   var prefs = {}
   try { prefs = JSON.parse(String(json || "{}")) || {} } catch (e) { prefs = {} }
   function pick(key) {
@@ -598,6 +598,6 @@ if (typeof module !== "undefined") {
     clockFormats: clockFormats,
     clockFormatRing: clockFormatRing,
     nextClockFormat: nextClockFormat,
-    planovaPrefs: planovaPrefs
+    planetxtPrefs: planetxtPrefs
   }
 }

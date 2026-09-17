@@ -1,16 +1,16 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import "PlanovaModel.js" as Model
+import "PlaneTxtModel.js" as Model
 
-// All file IO for the Planova widget: locating the Org root from Planova's
+// All file IO for the PlaneTxt widget: locating the Org root from PlaneTxt's
 // own preferences, scanning and parsing the daily files, watching for
-// external edits (Planova, an editor, Syncthing), and writing changes back
-// through the same insertion algorithms Planova uses.
+// external edits (PlaneTxt, an editor, Syncthing), and writing changes back
+// through the same insertion algorithms PlaneTxt uses.
 //
 // Writes are atomic (FileView atomicWrites: temp file + rename), the same
-// guarantee Planova gives, so a crash mid-write can never truncate a daily
-// file - and Planova's own watcher picks our writes up within ~2s.
+// guarantee PlaneTxt gives, so a crash mid-write can never truncate a daily
+// file - and PlaneTxt's own watcher picks our writes up within ~2s.
 Item {
   id: root
 
@@ -22,28 +22,32 @@ Item {
     return value === undefined || value === null ? fallback : value
   }
 
-  // ---- Configuration: inline shell.json setting → Planova prefs → default.
+  // ---- Configuration: inline shell.json setting → PlaneTxt prefs → default.
 
   readonly property string home: Quickshell.env("HOME") || ""
-  readonly property string prefsPath: home + "/.local/share/fr.rvier.planova/shared_preferences.json"
+  readonly property string prefsPath: home + "/.local/share/fr.rvier.planetxt/shared_preferences.json"
+  // Where the app kept its preferences before the Planova -> PlaneTxt rename.
+  readonly property string legacyPrefsPath: home + "/.local/share/fr.rvier.planova/shared_preferences.json"
+  property bool useLegacyPrefs: false
 
-  property var planovaPrefs: ({ storagePath: null, dailyTemplate: null, todoHeaderRegex: null, eventHeaderRegex: null, logHeaderRegex: null })
+  property var planetxtPrefs: ({ storagePath: null, dailyTemplate: null, todoHeaderRegex: null, eventHeaderRegex: null, logHeaderRegex: null })
 
-  readonly property string storagePath: setting("storagePath", planovaPrefs.storagePath || (home + "/Org"))
+  readonly property string storagePath: setting("storagePath", planetxtPrefs.storagePath || (home + "/Org"))
   readonly property string dailiesDir: storagePath + "/dailies"
   readonly property string notesDir: storagePath + "/notes"
 
-  readonly property string dailyTemplate: setting("dailyTemplate", planovaPrefs.dailyTemplate || Model.DEFAULT_TEMPLATE)
-  readonly property string todoHeaderRegex: setting("todoHeaderRegex", planovaPrefs.todoHeaderRegex || Model.DEFAULT_TODO_HEADER)
-  readonly property string eventHeaderRegex: setting("eventHeaderRegex", planovaPrefs.eventHeaderRegex || Model.DEFAULT_EVENT_HEADER)
-  readonly property string logHeaderRegex: setting("logHeaderRegex", planovaPrefs.logHeaderRegex || Model.DEFAULT_LOG_HEADER)
+  readonly property string dailyTemplate: setting("dailyTemplate", planetxtPrefs.dailyTemplate || Model.DEFAULT_TEMPLATE)
+  readonly property string todoHeaderRegex: setting("todoHeaderRegex", planetxtPrefs.todoHeaderRegex || Model.DEFAULT_TODO_HEADER)
+  readonly property string eventHeaderRegex: setting("eventHeaderRegex", planetxtPrefs.eventHeaderRegex || Model.DEFAULT_EVENT_HEADER)
+  readonly property string logHeaderRegex: setting("logHeaderRegex", planetxtPrefs.logHeaderRegex || Model.DEFAULT_LOG_HEADER)
 
   FileView {
     id: prefsFile
-    path: root.prefsPath
+    path: root.useLegacyPrefs ? root.legacyPrefsPath : root.prefsPath
     watchChanges: true
     printErrors: false
-    onLoaded: root.planovaPrefs = Model.planovaPrefs(text())
+    onLoadFailed: if (!root.useLegacyPrefs) root.useLegacyPrefs = true
+    onLoaded: root.planetxtPrefs = Model.planetxtPrefs(text())
     onFileChanged: reload()
   }
 
@@ -141,7 +145,7 @@ Item {
   }
 
   // A day that has no file yet starts from the user's template, exactly like
-  // Planova's quick-add does.
+  // PlaneTxt's quick-add does.
   function baseContentFor(key) {
     var existing = dailies[String(key)]
     return existing === undefined ? dailyTemplate : existing
@@ -236,12 +240,12 @@ Item {
     printErrors: false
     onSaved: root.writeDone()
     onSaveFailed: function(error) {
-      console.warn("planova: write failed:", writer.path)
+      console.warn("planetxt: write failed:", writer.path)
       root.writeDone()
     }
   }
 
-  // ---- Watcher: external edits land within the same ~2s window Planova
+  // ---- Watcher: external edits land within the same ~2s window PlaneTxt
   //      itself uses. Our own writes also come back through here, converging
   //      the in-memory state with whatever actually hit the disk.
 
@@ -320,7 +324,7 @@ Item {
     return notesDir + "/" + String(relPath)
   }
 
-  // Planova's note-name sanitization: strip slashes, keep word chars,
+  // PlaneTxt's note-name sanitization: strip slashes, keep word chars,
   // whitespace and dashes, collapse whitespace to underscores.
   function sanitizeNoteName(name) {
     var clean = String(name).replace(/[\/\\]/g, "")
@@ -364,7 +368,7 @@ Item {
 
   function openDaily(key) {
     // Seed a missing day from the template first so the editor doesn't open
-    // on a blank buffer, matching what Planova's editor shows.
+    // on a blank buffer, matching what PlaneTxt's editor shows.
     if (dailies[String(key)] === undefined) setDaily(key, dailyTemplate)
     openExternally(dailyPathFor(key))
   }

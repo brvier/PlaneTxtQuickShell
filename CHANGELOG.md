@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+- Renamed from Planova to PlaneTxt: the plugin id is now `fr.rvier.planetxt` (re-enable it and update `~/.config/omarchy/shell.json`), the repository is `PlaneTxtQuickShell`, and preferences are read from `~/.local/share/fr.rvier.planetxt/`, falling back to the old `fr.rvier.planova` directory.
+
 ## [0.1.2] - 2026-09-11
 
 ### Fixed

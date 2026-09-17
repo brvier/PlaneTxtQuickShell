@@ -1,9 +1,9 @@
 import QtQuick
 import qs.Commons
 import qs.Ui
-import "../PlanovaModel.js" as Model
+import "../PlaneTxtModel.js" as Model
 
-// Planova's refill: every undone todo from days before the selected one,
+// PlaneTxt's refill: every undone todo from days before the selected one,
 // newest first. Checked entries are moved - removed from their source file
 // and inserted after the last todo of the selected day. Space toggles the
 // row under the cursor, Enter moves the selection.

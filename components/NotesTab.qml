@@ -2,7 +2,7 @@ import QtQuick
 import qs.Commons
 import qs.Ui
 
-// Planova's notes, newest first: every .md under notes/ (recursively),
+// PlaneTxt's notes, newest first: every .md under notes/ (recursively),
 // searchable by name, opened in the external editor. o creates, F2/r
 // renames, x deletes (with confirmation).
 Column {

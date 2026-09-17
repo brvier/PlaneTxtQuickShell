@@ -4,7 +4,7 @@ import qs.Ui
 
 // Month grid over the selected day's detail: the panel's main surface.
 // The grid is a picker - arrows and clicks move the selected day - with
-// Planova's per-day indicators drawn under each day number.
+// PlaneTxt's per-day indicators drawn under each day number.
 Column {
   id: root
 

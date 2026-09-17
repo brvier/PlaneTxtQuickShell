@@ -2,20 +2,20 @@ import QtQuick
 import Quickshell
 import qs.Commons
 import qs.Ui
-import "PlanovaModel.js" as Model
+import "PlaneTxtModel.js" as Model
 import "components"
 
-// The Planova popup: a month calendar whose days carry todo/event
+// The PlaneTxt popup: a month calendar whose days carry todo/event
 // indicators, a detail view of the selected day (events, tasks, notes),
 // quick add, refill, and a notes browser - all reading and writing
-// Planova's markdown files through the Store.
+// PlaneTxt's markdown files through the Store.
 //
 // BarWidget.qml owns the bar label and hands this panel the button to
 // anchor against plus the shared Store.
 Panel {
   id: root
-  moduleName: "fr.rvier.planova"
-  ipcTarget: "fr.rvier.planova"
+  moduleName: "fr.rvier.planetxt"
+  ipcTarget: "fr.rvier.planetxt"
   manageIpc: false
 
   property var anchorItem: null
