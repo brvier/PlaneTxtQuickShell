@@ -1,7 +1,7 @@
 # PlaneTxtQuickShell
 
 An [Omarchy](https://omarchy.org) 4 shell plugin that replaces the date/time
-bar widget with a [PlaneTxt](https://github.com/brvier/PlaneTxtFlutter)-backed panel: the
+bar widget with a [PlaneTxt](https://github.com/brvier/PlaneTxt)-backed panel: the
 clock label stays (plus a badge counting today's undone todos), and clicking
 it opens a calendar with per-day indicators, the selected day's events,
 tasks, and notes, quick add, refill, and a notes browser.
@@ -121,7 +121,7 @@ Everything the plugin needs ships with Omarchy 4: the quickshell runtime,
 directories), and `omarchy-launch-editor` / `omarchy-menu-timezone` for the
 editor and timezone actions. No network access, no downloads, no sudo.
 
-[PlaneTxt](https://github.com/brvier/PlaneTxtFlutter) itself is optional. Without it the
+[PlaneTxt](https://github.com/brvier/PlaneTxt) itself is optional. Without it the
 plugin still works on `~/Org` (or `storagePath`) with the built-in defaults;
 with it, the Org root, templates and header patterns are read from PlaneTxt's
 preferences so both apps agree.
